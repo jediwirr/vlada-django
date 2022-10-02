@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Novel, Image, ImageAlbum, VideoFile, VideoAlbum
+from .models import Novel, Image, ImageAlbum, VideoFile, VideoAlbum, ParentAlbum
 
 
 class NovelSerializer(serializers.ModelSerializer):
@@ -16,12 +16,20 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = ('pk', 'album', 'title', 'path')
 
 
+class ParentAlbumSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ParentAlbum
+        fields = ('pk', 'title')
+
+
 class ImageAlbumSerializer(serializers.ModelSerializer):
     files = ImageSerializer(many=True)
+    parent_album = ParentAlbumSerializer()
 
     class Meta:
         model = ImageAlbum
-        fields = ('pk', 'title', 'files')
+        fields = ('pk', 'title', 'files', 'parent_album')
 
 
 class VideoFileSerializer(serializers.ModelSerializer):

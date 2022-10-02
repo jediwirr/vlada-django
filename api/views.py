@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Novel, Image, ImageAlbum
+from .models import Novel, Image, ImageAlbum, ParentAlbum
 from .serializers import *
 
 
@@ -170,6 +170,52 @@ def video_album_details(request, pk):
 
     elif request.method == 'PUT':
         serializer = VideoAlbumSerializer(album, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        novel.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view()
+def parent_album_list(request):
+    """
+ List  albums
+ """
+    if request.method == 'GET':
+        parent_albums = ParentAlbum.objects.all()
+
+        serializer = ParentAlbumSerializer(parent_albums, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ParentAlbumSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def parent_album_details(request, pk):
+    """
+    Retrieve, update or delete a customer by id/pk.
+    """
+    try:
+        parent_album = ParentAlbum.objects.get(pk=pk)
+    except ParentAlbum.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ParentAlbumSerializer(parent_album, context={'request': request})
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ParentAlbumSerializer(parent_album, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

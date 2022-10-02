@@ -11,4 +11,6 @@ urlpatterns = [
     path('videofiles/', views.video_file_list, name='videofiles'),
     path('videoalbums/', views.video_album_list, name='videoalbums'),
     path('videoalbums/<int:pk>', views.video_album_details, name='videoalbum'),
+    path('parentalbums/', views.parent_album_list, name='parentalbums'),
+    path('parentalbums/<int:pk>', views.parent_album_details, name='parentalbum'),
 ]

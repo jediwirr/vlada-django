@@ -13,8 +13,20 @@ class Novel(models.Model):
         return self.title
 
 
+class ParentAlbum(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Название альбома')
+
+    class Meta:
+        verbose_name = 'Общий альбом'
+        verbose_name_plural = 'Общие альбомы'
+
+    def __str__(self):
+        return self.title
+
+
 class ImageAlbum(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название альбома')
+    parent_album = models.ForeignKey(ParentAlbum, verbose_name="Родительский альбом", on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Фотоальбом'
@@ -22,7 +34,7 @@ class ImageAlbum(models.Model):
 
     def __str__(self):
         return self.title
-
+  
 
 class Image(models.Model):
     album = models.ForeignKey(ImageAlbum, related_name='files', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Альбом')

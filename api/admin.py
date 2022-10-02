@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Novel, Image, ImageAlbum, VideoFile, VideoAlbum
+from .models import Novel, Image, ImageAlbum, VideoFile, VideoAlbum, ParentAlbum
 
 class ImageAdmin(admin.StackedInline):
     model = Image
@@ -11,6 +11,17 @@ class ImageAlbumAdmin(admin.ModelAdmin):
 
     class Meta:
         model = ImageAlbum
+
+
+class SubAlbumAdmin(admin.StackedInline):
+    model = ImageAlbum
+
+
+class ParentAlbumAdmin(admin.ModelAdmin):
+    inlines = [SubAlbumAdmin]
+
+    class Meta:
+        model = ParentAlbum
 
 
 class VideoFileAdmin(admin.StackedInline):
@@ -27,3 +38,4 @@ class VideoAlbumAdmin(admin.ModelAdmin):
 admin.site.register(Novel)
 admin.site.register(VideoAlbum, VideoAlbumAdmin)
 admin.site.register(ImageAlbum, ImageAlbumAdmin)
+admin.site.register(ParentAlbum, ParentAlbumAdmin)
