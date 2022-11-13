@@ -63,7 +63,8 @@ class VideoAlbum(models.Model):
 class VideoFile(models.Model):
     album = models.ForeignKey(VideoAlbum, related_name='files', on_delete=models.CASCADE, verbose_name='Альбом')
     title = models.CharField(max_length=50, verbose_name='Название видео')
-    path = models.FileField(upload_to='uploads', max_length=100, verbose_name='Файл')
+    #path = models.FileField(upload_to='uploads', max_length=100, verbose_name='Файл')
+    path = models.URLField(max_length=200)
 
     class Meta:
         verbose_name = 'Видео'
