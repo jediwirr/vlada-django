@@ -12,9 +12,19 @@ export const Container = styled.div`
   }
 `;
 
+export const AboutWrapper = styled.div``;
+
 export const Portrait = styled.div`
   width: 100%;
   padding: 1em 2em;
+
+  @media (max-width: 768px){
+    padding: 0;
+  }
+`;
+
+export const Title = styled.h1`
+  text-align: center;
 `;
 
 export const ItemWrapper = styled.div`

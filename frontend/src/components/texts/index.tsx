@@ -2,14 +2,14 @@ import React, { useState, useEffect, FC } from 'react';
 
 import { HiChevronRight, HiChevronLeft } from 'react-icons/hi';
 
-import { Novel } from '../../interfaces/novel';
+import { INovel } from '../../interfaces/novel';
 import { API_URL } from '../../services/constants';
 import GalleryHeader from '../gallery-header';
 
 import * as S from './styles';
 
 const Texts: FC = () => {
-  const [data, setData] = useState<Novel[]>([]);
+  const [data, setData] = useState<INovel[]>([]);
   const [title, setTitle] = useState<string>('');
   const [isShown, setIsShown] = useState<boolean>(true);
 
@@ -34,7 +34,7 @@ const Texts: FC = () => {
         {isShown ?
           <S.TextsMenu>
             {!data ? 'Loading... ' :
-              data.map((item: Novel, i: number) => (
+              data.map((item: INovel, i: number) => (
                 <S.TextsMenuLine onClick={() => toggleMenu(item.title)}>{i + 1}. {item.title}</S.TextsMenuLine>
               ))}
           </S.TextsMenu> : null
@@ -46,7 +46,7 @@ const Texts: FC = () => {
           null :
           <S.TextWrapper>
             {!data ? 'Loading... ' :
-              data.map((item: Novel) => (
+              data.map((item: INovel) => (
                 <>
                   <S.Title key={item.title}>{item.title === title ? item.title : ''}</S.Title>
                   {item.content.split('\n').map(par => (

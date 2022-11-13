@@ -17,12 +17,6 @@ export const Shevron = styled.div<Props>`
   align-items: center;
   transition: all .5s ease;
 
-  &:hover{
-    font-size: 5em;
-    opacity: .2;
-    color: #B0B0B0;
-  }
-
   opacity: ${props => 
     props.shevronSide === 'left' 
       ? props.isPrevShown ? '1' : '0' 
@@ -35,6 +29,16 @@ export const Shevron = styled.div<Props>`
           right: 0; 
           justify-content: flex-end;
         `}
+
+  &:hover{
+    font-size: 5em;
+    color: #B0B0B0;
+
+    opacity: ${props => 
+    props.shevronSide === 'left' 
+      ? props.isPrevShown ? '.2' : '0' 
+      : props.isNextShown ? '.2' : '0'};
+  }
 `;
 
 export const Slide = styled.div<{ isVideo?: boolean }>`
